@@ -109,8 +109,8 @@ function App() {
   };
 
   return (
-    <div className={`App w-full h-screen theme-${theme}-bg theme-${theme}-text` }>
-      <div className="App mx-auto w-full md:w-1/2 md:min-w-[768px]">
+    <div className={`App w-full h-auto theme-${theme}-bg theme-${theme}-text` }>
+      <div className="App mx-auto w-full min-h-screen md:w-1/2 md:min-w-[768px]">
         <div className='text-center p-4 text-[3rem] font-black'>3927 project</div>
         <div className="container mx-auto p-4">
         <div className="options-toggle flex justify-end">
@@ -140,8 +140,8 @@ function App() {
             </div>
           )}
           <p></p>
-          {currentChapterSummary && <SummaryDiv summary={currentChapterSummary} />}
-          {errorMessage && <div className='mx-auto'><p className="text-gray-400">{errorMessage}</p></div>}
+          {currentChapterSummary && <SummaryDiv summary={currentChapterSummary} theme={theme}/>}
+          {errorMessage && <div className='mx-auto'><p className={`theme-${theme}-text`}>{errorMessage}</p></div>}
           <OutputDiv 
           verses={verses} 
           selectedVerses={selected} 
@@ -166,12 +166,12 @@ function App() {
         {currentChapterName && (
           <div className="container mx-auto p-4">
               <div className='flex justify-between'>
-                <button className={`px-2 py-1 border theme-${theme}-line rounded-xl`} onClick={handlePreviousChapter}>&lt;</button>
-                <button className={`px-2 py-1 border theme-${theme}-line rounded-xl`} onClick={handleNextChapter}>&gt;</button>
+                <button className={`px-2 py-0.5 border theme-${theme}-line rounded-xl`} onClick={handlePreviousChapter}>&lt;</button>
+                <button className={`px-2 py-0.5 border theme-${theme}-line rounded-xl`} onClick={handleNextChapter}>&gt;</button>
               </div>
           </div>
           )}
-        <div className='text-[0.8rem] p-2 mb-2 text-center opacity-60'>
+        <div className='text-[0.8rem] pb-4 text-center opacity-60'>
           활용방법 / 3927 프로젝트를 후원해주세요
         </div>
       </div>

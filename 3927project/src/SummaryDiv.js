@@ -1,9 +1,9 @@
 import React from 'react';
 
-const SummaryDiv = ({ summary }) => {
+const SummaryDiv = ({ summary, theme }) => {
   return (
-    <div className="summary p-2 my-4 text-[0.9rem] rounded-xl bg-gray-100">
-      <p className="text-gray-600">{summary}</p>
+    <div className={`summary p-4 my-4 text-[0.9rem] rounded-xl theme-${theme}-summary`}>
+      <p className={`theme-${theme}-text`}>{summary}</p>
     </div>
   );
 };
