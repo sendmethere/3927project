@@ -1,0 +1,530 @@
+[
+  {
+    "id": 1,
+    "name": "창세기",
+    "abbreviation": "창",
+    "max_chapter": 50,
+    "name_en": "Genesis",
+    "abbreviation_en": "Gen"
+  },
+  {
+    "id": 2,
+    "name": "출애굽기",
+    "abbreviation": "출",
+    "max_chapter": 40,
+    "name_en": "Exodus",
+    "abbreviation_en": "Exo"
+  },
+  {
+    "id": 3,
+    "name": "레위기",
+    "abbreviation": "레",
+    "max_chapter": 27,
+    "name_en": "Leviticus",
+    "abbreviation_en": "Lev"
+  },
+  {
+    "id": 4,
+    "name": "민수기",
+    "abbreviation": "민",
+    "max_chapter": 35,
+    "name_en": "Numbers",
+    "abbreviation_en": "Num"
+  },
+  {
+    "id": 5,
+    "name": "신명기",
+    "abbreviation": "신",
+    "max_chapter": 34,
+    "name_en": "Deuteronomy",
+    "abbreviation_en": "Deu"
+  },
+  {
+    "id": 6,
+    "name": "여호수아",
+    "abbreviation": "수",
+    "max_chapter": 24,
+    "name_en": "Joshua",
+    "abbreviation_en": "Jos"
+  },
+  {
+    "id": 7,
+    "name": "사사기",
+    "abbreviation": "삿",
+    "max_chapter": 21,
+    "name_en": "Judges",
+    "abbreviation_en": "Jdg"
+  },
+  {
+    "id": 8,
+    "name": "룻기",
+    "abbreviation": "룻",
+    "max_chapter": 4,
+    "name_en": "Ruth",
+    "abbreviation_en": "Rut"
+  },
+  {
+    "id": 9,
+    "name": "사무엘상",
+    "abbreviation": "삼상",
+    "max_chapter": 31,
+    "name_en": "1 Samuel",
+    "abbreviation_en": "1 Sam"
+  },
+  {
+    "id": 10,
+    "name": "사무엘하",
+    "abbreviation": "삼하",
+    "max_chapter": 24,
+    "name_en": "2 Samuel",
+    "abbreviation_en": "2 Sam"
+  },
+  {
+    "id": 11,
+    "name": "열왕기상",
+    "abbreviation": "왕상",
+    "max_chapter": 22,
+    "name_en": "1 Kings",
+    "abbreviation_en": "1 Ki"
+  },
+  {
+    "id": 12,
+    "name": "열왕기하",
+    "abbreviation": "왕하",
+    "max_chapter": 25,
+    "name_en": "2 Kings",
+    "abbreviation_en": "2 Ki"
+  },
+  {
+    "id": 13,
+    "name": "역대상",
+    "abbreviation": "대상",
+    "max_chapter": 29,
+    "name_en": "1 Chronicles",
+    "abbreviation_en": "1 Chr"
+  },
+  {
+    "id": 14,
+    "name": "역대하",
+    "abbreviation": "대하",
+    "max_chapter": 36,
+    "name_en": "2 Chronicles",
+    "abbreviation_en": "2 Chr"
+  },
+  {
+    "id": 15,
+    "name": "에스라",
+    "abbreviation": "스",
+    "max_chapter": 10,
+    "name_en": "Ezra",
+    "abbreviation_en": "Ezr"
+  },
+  {
+    "id": 16,
+    "name": "느헤미야",
+    "abbreviation": "느",
+    "max_chapter": 13,
+    "name_en": "Nehemiah",
+    "abbreviation_en": "Neh"
+  },
+  {
+    "id": 17,
+    "name": "에스더",
+    "abbreviation": "에",
+    "max_chapter": 10,
+    "name_en": "Esther",
+    "abbreviation_en": "Est"
+  },
+  {
+    "id": 18,
+    "name": "욥기",
+    "abbreviation": "욥",
+    "max_chapter": 42,
+    "name_en": "Job",
+    "abbreviation_en": "Job"
+  },
+  {
+    "id": 19,
+    "name": "시편",
+    "abbreviation": "시",
+    "max_chapter": 150,
+    "name_en": "Psalms",
+    "abbreviation_en": "Psa"
+  },
+  {
+    "id": 20,
+    "name": "잠언",
+    "abbreviation": "잠",
+    "max_chapter": 31,
+    "name_en": "Proverbs",
+    "abbreviation_en": "Pro"
+  },
+  {
+    "id": 21,
+    "name": "전도서",
+    "abbreviation": "전",
+    "max_chapter": 12,
+    "name_en": "Ecclesiastes",
+    "abbreviation_en": "Ecc"
+  },
+  {
+    "id": 22,
+    "name": "아가",
+    "abbreviation": "아",
+    "max_chapter": 8,
+    "name_en": "Song of Songs",
+    "abbreviation_en": "Song"
+  },
+  {
+    "id": 23,
+    "name": "이사야",
+    "abbreviation": "사",
+    "max_chapter": 66,
+    "name_en": "Isaiah",
+    "abbreviation_en": "Isa"
+  },
+  {
+    "id": 24,
+    "name": "예레미야",
+    "abbreviation": "렘",
+    "max_chapter": 52,
+    "name_en": "Jeremiah",
+    "abbreviation_en": "Jer"
+  },
+  {
+    "id": 25,
+    "name": "예레미야애가",
+    "abbreviation": "애",
+    "max_chapter": 5,
+    "name_en": "Lamentations",
+    "abbreviation_en": "Lam"
+  },
+  {
+    "id": 26,
+    "name": "에스겔",
+    "abbreviation": "겔",
+    "max_chapter": 48,
+    "name_en": "Ezekiel",
+    "abbreviation_en": "Eze"
+  },
+  {
+    "id": 27,
+    "name": "다니엘",
+    "abbreviation": "단",
+    "max_chapter": 12,
+    "name_en": "Daniel",
+    "abbreviation_en": "Dan"
+  },
+  {
+    "id": 28,
+    "name": "호세아",
+    "abbreviation": "호",
+    "max_chapter": 14,
+    "name_en": "Hosea",
+    "abbreviation_en": "Hos"
+  },
+  {
+    "id": 29,
+    "name": "요엘",
+    "abbreviation": "욜",
+    "max_chapter": 3,
+    "name_en": "Joel",
+    "abbreviation_en": "Joe"
+  },
+  {
+    "id": 30,
+    "name": "아모스",
+    "abbreviation": "암",
+    "max_chapter": 9,
+    "name_en": "Amos",
+    "abbreviation_en": "Amo"
+  },
+  {
+    "id": 31,
+    "name": "오바댜",
+    "abbreviation": "옵",
+    "max_chapter": 1,
+    "name_en": "Obadiah",
+    "abbreviation_en": "Obd"
+  },
+  {
+    "id": 32,
+    "name": "요나",
+    "abbreviation": "욘",
+    "max_chapter": 4,
+    "name_en": "Jonah",
+    "abbreviation_en": "Jon"
+  },
+  {
+    "id": 33,
+    "name": "미가",
+    "abbreviation": "미",
+    "max_chapter": 7,
+    "name_en": "Micah",
+    "abbreviation_en": "Mic"
+  },
+  {
+    "id": 34,
+    "name": "나훔",
+    "abbreviation": "나",
+    "max_chapter": 3,
+    "name_en": "Nahum",
+    "abbreviation_en": "Nah"
+  },
+  {
+    "id": 35,
+    "name": "하박국",
+    "abbreviation": "합",
+    "max_chapter": 3,
+    "name_en": "Habakkuk",
+    "abbreviation_en": "Hab"
+  },
+  {
+    "id": 36,
+    "name": "스바냐",
+    "abbreviation": "습",
+    "max_chapter": 3,
+    "name_en": "Zephaniah",
+    "abbreviation_en": "Zep"
+  },
+  {
+    "id": 37,
+    "name": "학개",
+    "abbreviation": "학",
+    "max_chapter": 2,
+    "name_en": "Haggai",
+    "abbreviation_en": "Hag"
+  },
+  {
+    "id": 38,
+    "name": "스가랴",
+    "abbreviation": "슥",
+    "max_chapter": 14,
+    "name_en": "Zechariah",
+    "abbreviation_en": "Zec"
+  },
+  {
+    "id": 39,
+    "name": "말라기",
+    "abbreviation": "말",
+    "max_chapter": 4,
+    "name_en": "Malachi",
+    "abbreviation_en": "Mal"
+  },
+  {
+    "id": 40,
+    "name": "마태복음",
+    "abbreviation": "마",
+    "max_chapter": 28,
+    "name_en": "Matthew",
+    "abbreviation_en": "Mat"
+  },
+  {
+    "id": 41,
+    "name": "마가복음",
+    "abbreviation": "막",
+    "max_chapter": 16,
+    "name_en": "Mark",
+    "abbreviation_en": "Mar"
+  },
+  {
+    "id": 42,
+    "name": "누가복음",
+    "abbreviation": "눅",
+    "max_chapter": 24,
+    "name_en": "Luke",
+    "abbreviation_en": "Luk"
+  },
+  {
+    "id": 43,
+    "name": "요한복음",
+    "abbreviation": "요",
+    "max_chapter": 21,
+    "name_en": "John",
+    "abbreviation_en": "Joh"
+  },
+  {
+    "id": 44,
+    "name": "사도행전",
+    "abbreviation": "행",
+    "max_chapter": 28,
+    "name_en": "Acts",
+    "abbreviation_en": "Act"
+  },
+  {
+    "id": 45,
+    "name": "로마서",
+    "abbreviation": "롬",
+    "max_chapter": 16,
+    "name_en": "Romans",
+    "abbreviation_en": "Rom"
+  },
+  {
+    "id": 46,
+    "name": "고린도전서",
+    "abbreviation": "고전",
+    "max_chapter": 16,
+    "name_en": "1 Corinthians",
+    "abbreviation_en": "1 Cor"
+  },
+  {
+    "id": 47,
+    "name": "고린도후서",
+    "abbreviation": "고후",
+    "max_chapter": 13,
+    "name_en": "2 Corinthians",
+    "abbreviation_en": "2 Cor"
+  },
+  {
+    "id": 48,
+    "name": "갈라디아서",
+    "abbreviation": "갈",
+    "max_chapter": 6,
+    "name_en": "Galatians",
+    "abbreviation_en": "Gal"
+  },
+  {
+    "id": 49,
+    "name": "에베소서",
+    "abbreviation": "엡",
+    "max_chapter": 6,
+    "name_en": "Ephesians",
+    "abbreviation_en": "Eph"
+  },
+  {
+    "id": 50,
+    "name": "빌립보서",
+    "abbreviation": "빌",
+    "max_chapter": 4,
+    "name_en": "Philippians",
+    "abbreviation_en": "Php"
+  },
+  {
+    "id": 51,
+    "name": "골로새서",
+    "abbreviation": "골",
+    "max_chapter": 4,
+    "name_en": "Colossians",
+    "abbreviation_en": "Col"
+  },
+  {
+    "id": 52,
+    "name": "데살로니가전서",
+    "abbreviation": "살전",
+    "max_chapter": 5,
+    "name_en": "1 Thessalonians",
+    "abbreviation_en": "1 Th"
+  },
+  {
+    "id": 53,
+    "name": "데살로니가후서",
+    "abbreviation": "살후",
+    "max_chapter": 3,
+    "name_en": "2 Thessalonians",
+    "abbreviation_en": "2 Th"
+  },
+  {
+    "id": 54,
+    "name": "디모데전서",
+    "abbreviation": "딤전",
+    "max_chapter": 6,
+    "name_en": "1 Timothy",
+    "abbreviation_en": "1 Tim"
+  },
+  {
+    "id": 55,
+    "name": "디모데후서",
+    "abbreviation": "딤후",
+    "max_chapter": 4,
+    "name_en": "2 Timothy",
+    "abbreviation_en": "2 Tim"
+  },
+  {
+    "id": 56,
+    "name": "디도서",
+    "abbreviation": "딛",
+    "max_chapter": 3,
+    "name_en": "Titus",
+    "abbreviation_en": "Tit"
+  },
+  {
+    "id": 57,
+    "name": "빌레몬서",
+    "abbreviation": "몬",
+    "max_chapter": 1,
+    "name_en": "Philemon",
+    "abbreviation_en": "Phm"
+  },
+  {
+    "id": 58,
+    "name": "히브리서",
+    "abbreviation": "히",
+    "max_chapter": 13,
+    "name_en": "Hebrews",
+    "abbreviation_en": "Heb"
+  },
+  {
+    "id": 59,
+    "name": "야보고서",
+    "abbreviation": "약",
+    "max_chapter": 5,
+    "name_en": "James",
+    "abbreviation_en": "Jam"
+  },
+  {
+    "id": 60,
+    "name": "베드로전서",
+    "abbreviation": "벧전",
+    "max_chapter": 5,
+    "name_en": "1 Peter",
+    "abbreviation_en": "1 Pet"
+  },
+  {
+    "id": 61,
+    "name": "베드로후서",
+    "abbreviation": "벧후",
+    "max_chapter": 3,
+    "name_en": "2 Peter",
+    "abbreviation_en": "2 Pet"
+  },
+  {
+    "id": 62,
+    "name": "요한일서",
+    "abbreviation": "요일",
+    "max_chapter": 5,
+    "name_en": "1 John",
+    "abbreviation_en": "1 Jn"
+  },
+  {
+    "id": 63,
+    "name": "요한이서",
+    "abbreviation": "요이",
+    "max_chapter": 1,
+    "name_en": "2 John",
+    "abbreviation_en": "2 Jn"
+  },
+  {
+    "id": 64,
+    "name": "요한삼서",
+    "abbreviation": "요삼",
+    "max_chapter": 1,
+    "name_en": "3 John",
+    "abbreviation_en": "3 Jn"
+  },
+  {
+    "id": 65,
+    "name": "유다서",
+    "abbreviation": "유",
+    "max_chapter": 1,
+    "name_en": "Jude",
+    "abbreviation_en": "Jud"
+  },
+  {
+    "id": 66,
+    "name": "요한계시록",
+    "abbreviation": "계",
+    "max_chapter": 22,
+    "name_en": "Revelation",
+    "abbreviation_en": "Rev"
+  }
+]
