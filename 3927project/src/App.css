@@ -1,0 +1,79 @@
+/* 테마 1: 기본 밝은 테마 */
+.theme-1-bg {
+background-color: #fafbff;
+}
+.theme-1-text {
+color: #222222;
+}
+.theme-1-line {
+border-color: #999999;
+}
+.theme-1-buttonBg {
+background-color: #3b82f6;
+}
+.theme-1-buttonText {
+color: #ffffff;
+}
+.theme-1-selectedBg {
+filter:brightness(0.9)
+}
+
+/* 테마 2: 따뜻한 톤 */
+.theme-2-bg {
+background-color: #fff8e1;
+}
+.theme-2-text {
+color: #5d4037;
+}
+.theme-2-line {
+border-color: #bcaaa4;
+}
+.theme-2-buttonBg {
+background-color: #e79e32;
+}
+.theme-2-buttonText {
+color: #ffffff;
+}
+.theme-2-selectedBg {
+filter:brightness(0.9)
+}
+
+/* 테마 3: 차분한 파스텔 톤 */
+.theme-3-bg {
+background-color: #e0f7fa;
+}
+.theme-3-text {
+color: #006064;
+}
+.theme-3-line {
+border-color: #b2dfdb;
+}
+.theme-3-buttonBg {
+background-color: #64d6c3;
+}
+.theme-3-buttonText {
+color: #006064;
+}
+.theme-3-selectedBg {
+filter:brightness(0.9)
+}
+
+/* 테마 4: 다크 모드 */
+.theme-4-bg {
+background-color: #151b1e;
+}
+.theme-4-text {
+color: #eceff1;
+}
+.theme-4-line {
+border-color: #b0bec5;
+}
+.theme-4-buttonBg {
+background-color: #546e7a;
+}
+.theme-4-buttonText {
+color: #eceff1;
+}
+.theme-4-selectedBg {
+background-color: #2a363c;
+}

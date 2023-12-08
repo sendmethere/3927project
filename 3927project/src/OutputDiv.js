@@ -1,11 +1,11 @@
 import React from 'react';
 
-const OutputDiv = ({ verses, selectedVerses, onVerseClick }) => {
+const OutputDiv = ({ verses, selectedVerses, onVerseClick, theme }) => {
   return (
-    <div className='mx-auto divide-y divide-gray-300'>
+    <div className={`mx-auto divide-y`}>
       {verses.map((verse, index) => (
         <div key={index} 
-        className={`p-2 ${selectedVerses.some(v => v.id === verse.id) ? 'bg-slate-300' : 'bg-white'} hover:brightness-90 cursor-pointer`}
+        className={`p-2 theme-${theme}-bg ${selectedVerses.some(v => v.id === verse.id) ? `theme-${theme}-selectedBg` : ''} hover:brightness-90 cursor-pointer theme-${theme}-line`}
         onClick={() => onVerseClick(verse)}>
           <p><span className='text-superscript'>{verse.number}</span> {verse.text}</p>
         </div>
