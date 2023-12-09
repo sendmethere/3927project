@@ -1,5 +1,7 @@
 import './App.css';
 import { useState } from 'react';
+import logo from './3927logo.svg';
+
 import booksData from './data/books.json';
 import chaptersData from './data/chapters.json';
 import versesData from './data/verses.json';
@@ -120,21 +122,22 @@ function App() {
   return (
     <div className={`App w-full h-auto theme-${theme}-bg theme-${theme}-text` }>
       <div className="App mx-auto w-full min-h-screen md:w-1/2 md:min-w-[768px]">
-        <div className='text-center p-4 text-[3rem] font-black'>3927 project</div>
-        <div className="container mx-auto p-4">
-        <div className="options-toggle flex justify-end">
-          <button onClick={() => setShowOptions(!showOptions)}>⚙️</button>
-        </div>
-        {showOptions && (
-          <div className="options-menu py-2">
-            <div className="flex justify-end theme-buttons">
-              <button className="theme-1-bg theme-1-text border theme-1-line mx-1 px-2 rounded" onClick={() => changeTheme(1)}>Aa</button>
-              <button className="theme-2-bg theme-2-text border theme-2-line  mx-1 px-2 rounded" onClick={() => changeTheme(2)}>Aa</button>
-              <button className="theme-3-bg theme-3-text border theme-3-line  mx-1 px-2 rounded" onClick={() => changeTheme(3)}>Aa</button>
-              <button className="theme-4-bg theme-4-text border theme-4-line  mx-1 px-2 rounded" onClick={() => changeTheme(4)}>Aa</button>
-            </div>
+        <div className='flex justify-center p-2'>
+        <img className='lg:w-[200px] md:w-[150px] w-[60px]' src={logo} alt="3927 project" /></div>
+        <div className="container mx-auto p-2">
+          <div className="options-toggle flex justify-end">
+            <button onClick={() => setShowOptions(!showOptions)}>⚙️</button>
           </div>
-        )}
+          {showOptions && (
+            <div className="options-menu py-2">
+              <div className="flex justify-end theme-buttons">
+                <button className="theme-1-bg theme-1-text border theme-1-line mx-1 px-2 rounded" onClick={() => changeTheme(1)}>Aa</button>
+                <button className="theme-2-bg theme-2-text border theme-2-line  mx-1 px-2 rounded" onClick={() => changeTheme(2)}>Aa</button>
+                <button className="theme-3-bg theme-3-text border theme-3-line  mx-1 px-2 rounded" onClick={() => changeTheme(3)}>Aa</button>
+                <button className="theme-4-bg theme-4-text border theme-4-line  mx-1 px-2 rounded" onClick={() => changeTheme(4)}>Aa</button>
+              </div>
+          </div>
+          )}
 
           <div className='flex items-center my-2'>
             <button className="mx-2 text-[1.5rem]" onClick={() => setShowModal(true)}>📖</button>
@@ -192,7 +195,7 @@ function App() {
           </div>
           )}
         <div className='text-[0.8rem] pb-4 text-center opacity-60'>
-          활용방법 / 3927 프로젝트를 후원해주세요
+          3927 프로젝트를 후원해주세요
         </div>
       </div>
     </div>

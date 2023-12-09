@@ -16,7 +16,7 @@ const BookChapterModal = ({ books, onSelect, onClose, theme }) => {
   return (
     <>
       <div className="modal-overlay" onClick={onClose}></div>
-      <div className={`modal theme-${theme}-bg theme-${theme}-text`}>
+      <div className={`modal md:w-[50%] w-[80%] theme-${theme}-bg theme-${theme}-text`}>
         <div className='flex justify-between my-3'>
             <div>
             {selectedBook ? (
