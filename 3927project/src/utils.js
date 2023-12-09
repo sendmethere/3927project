@@ -107,6 +107,7 @@ export const copySelectedVerses = (selected, chaptersMap, booksData, setCopyMess
   
     if (nextChapter) {
       handleChapterChange(nextChapter.id);
+      window.scrollTo(0, 0);
     }
   };
   
@@ -127,5 +128,6 @@ export const copySelectedVerses = (selected, chaptersMap, booksData, setCopyMess
   
     if (prevChapter) {
       handleChapterChange(prevChapter.id);
+      window.scrollTo(0, 0);
     }
   };

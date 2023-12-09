@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const InputField = ({ input, onInputChange, theme }) => {
   return (
-    <div className="mb-4">
+    <div className="w-full">
       <input
         type="text"
         value={input}

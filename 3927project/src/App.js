@@ -9,6 +9,7 @@ import SummaryDiv from './SummaryDiv';
 
 
 import { validateAndFetchVerses, copySelectedVerses, moveToNextChapter, moveToPreviousChapter } from './utils';
+import BookChapterModal from './BookChapterModal';
 
 function App() {
   // 상태값들
@@ -19,8 +20,10 @@ function App() {
     const [selected, setSelected] = useState([]);
     const [copyMessage, setCopyMessage] = useState('');
     const [currentChapterSummary, setCurrentChapterSummary] = useState('');
-    const [currentChapterName, setCurrentChapterName] = useState('')
-    const [currentChapterId, setCurrentChapterId] = useState('')
+    const [currentChapterName, setCurrentChapterName] = useState('');
+    const [currentChapterId, setCurrentChapterId] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
 
     // 테마 관련 상태값
     const [theme, setTheme] = useState(1);
@@ -103,9 +106,15 @@ function App() {
     moveToPreviousChapter(currentChapterId, chaptersMap, booksMap, handleChapterChange);
   };
 
-  // 상태 변경
+  // 테마 변경
   const changeTheme = (themeId) => {
     setTheme(themeId);
+  };
+
+  //모달창
+  const handleModalSelect = (searchValue) => {
+    setInput(searchValue);
+    handleInputChange(searchValue);
   };
 
   return (
@@ -117,9 +126,8 @@ function App() {
           <button onClick={() => setShowOptions(!showOptions)}>⚙️</button>
         </div>
         {showOptions && (
-          <div className="options-menu p-2">
-            <div className="theme-buttons">
-              테마 : 
+          <div className="options-menu py-2">
+            <div className="flex justify-end theme-buttons">
               <button className="theme-1-bg theme-1-text border theme-1-line mx-1 px-2 rounded" onClick={() => changeTheme(1)}>Aa</button>
               <button className="theme-2-bg theme-2-text border theme-2-line  mx-1 px-2 rounded" onClick={() => changeTheme(2)}>Aa</button>
               <button className="theme-3-bg theme-3-text border theme-3-line  mx-1 px-2 rounded" onClick={() => changeTheme(3)}>Aa</button>
@@ -128,15 +136,26 @@ function App() {
           </div>
         )}
 
-
-          <InputField input={input} onInputChange={handleInputChange} theme={theme}/>
+          <div className='flex items-center my-2'>
+            <button className="mx-2 text-[1.5rem]" onClick={() => setShowModal(true)}>📖</button>
+          {showModal && (
+            <BookChapterModal
+              books={booksData}
+              onSelect={handleModalSelect}
+              onClose={() => setShowModal(false)}
+              theme={theme}
+            />
+          )}
+            <InputField input={input} onInputChange={handleInputChange} theme={theme}/>
+          </div>
+          
           {currentChapterName && (
             <div className='flex my-4 justify-between'>
-              <button className={`px-2 border theme-${theme}-line rounded-xl`} onClick={handlePreviousChapter}>&lt;</button>
+              <button className={`px-2 border theme-${theme}-line rounded-xl font-bold`} onClick={handlePreviousChapter}>&lt;</button>
               <div className="chapter-name text-center">
-                <p className="text-[1.25rem] font-semibold">{currentChapterName}</p>
+                <p className="text-[1.25rem] font-bold">{currentChapterName}</p>
               </div>
-              <button className={`px-2 border theme-${theme}-line rounded-xl`} onClick={handleNextChapter}>&gt;</button>
+              <button className={`px-2 border theme-${theme}-line rounded-xl font-bold`} onClick={handleNextChapter}>&gt;</button>
             </div>
           )}
           <p></p>
@@ -156,7 +175,8 @@ function App() {
               className={`
               fixed bottom-4 right-4 p-4 
               md:relative md:right-0 md:bottom-0 md:px-8
-              theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100`}
+              theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
+              `}
             >
               {copyMessage ? copyMessage : '복사'}
             </button>
@@ -166,8 +186,8 @@ function App() {
         {currentChapterName && (
           <div className="container mx-auto p-4">
               <div className='flex justify-between'>
-                <button className={`px-2 py-0.5 border theme-${theme}-line rounded-xl`} onClick={handlePreviousChapter}>&lt;</button>
-                <button className={`px-2 py-0.5 border theme-${theme}-line rounded-xl`} onClick={handleNextChapter}>&gt;</button>
+                <button className={`px-2 py-0.5 border theme-${theme}-line rounded-xl font-bold`} onClick={handlePreviousChapter}>&lt;</button>
+                <button className={`px-2 py-0.5 border theme-${theme}-line rounded-xl font-bold`} onClick={handleNextChapter}>&gt;</button>
               </div>
           </div>
           )}
