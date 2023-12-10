@@ -32,7 +32,7 @@ function App() {
     // 옵션 관련 상태값
     const [theme, setTheme] = useState(loadFromLocalStorage('theme',1));
     const [copyFormat, setCopyFormat] = useState(loadFromLocalStorage('copyFormat', 'short')); // 'short', 'medium', 'long' 중 하나
-    const [lastVerse, setLastVerse] = useState(loadFromLocalStorage('lastVerse', copyFormat));
+    const [lastVerse, setLastVerse] = useState(loadFromLocalStorage('lastVerse', ''));
     const [copyOptions, setCopyOptions] = useState(loadFromLocalStorage('copyOptions', { bracket: true, lineBreak: true, verseNumber: true }));
 
 
