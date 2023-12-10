@@ -55,12 +55,16 @@ return {
 };
 
 // 복사 함수
-export const copySelectedVerses = (selected, chaptersMap, booksData, setCopyMessage) => {
+export const copySelectedVerses = (selected, chaptersMap, booksData, setCopyMessage, copyFormat, copyOptions) => {
     const sortedVerses = [...selected].sort((a, b) => a.number - b.number);
   
     let currentRangeStart = null;
     let currentRangeEnd = null;
     let addressParts = [];
+    
+    const chapter = chaptersMap[selected[0].chapter_id].number;
+    const bookName = booksData[selected[0].books_id-1].name;
+    const bookAbbreviation = booksData.find(book => book.id === chaptersMap[selected[0].chapter_id].book_id).abbreviation;
     sortedVerses.forEach((verse, index) => {
       if (currentRangeStart === null) {
         currentRangeStart = verse.number;
@@ -76,12 +80,32 @@ export const copySelectedVerses = (selected, chaptersMap, booksData, setCopyMess
         currentRangeStart = null;
       }
     });
+
+    let citation;
+      switch (copyFormat) {
+        case 'short':
+          citation = `${bookAbbreviation}${chapter}:${addressParts.join(',')}`;
+          break;
+        case 'medium':
+          citation = `${bookName} ${chapter}:${addressParts.join(',')}`;
+          break;
+        case 'long':
+          citation = `${bookName} ${chapter}장 ${addressParts.join(',')}절`;
+          break;
+        default:
+          citation = '';
+      }
+      if (copyOptions.bracket) {
+        citation = `(${citation})`;
+      }
+
   
-    const chapter = chaptersMap[selected[0].chapter_id].number;
-    const bookAbbreviation = booksData.find(book => book.id === chaptersMap[selected[0].chapter_id].book_id).abbreviation;
-    const addressStr = `(${bookAbbreviation}${chapter}:${addressParts.join(',')})`;
+    // const addressStr = `(${bookAbbreviation}${chapter}:${addressParts.join(',')})`;
   
-    const textToCopy = selected.map(verse => `${verse.number} ${verse.text}`).join('\n') + '\n' + addressStr;
+    const textToCopy = selected.map(verse => 
+      `${copyOptions.verseNumber ? verse.number + ' ' : ''}${verse.text}`
+    ).join(copyOptions.lineBreak ? '\n' : ' ') + '\n' + citation;
+
     navigator.clipboard.writeText(textToCopy);
   
     if (setCopyMessage) {

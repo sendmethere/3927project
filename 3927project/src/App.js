@@ -1,5 +1,6 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { saveToLocalStorage, loadFromLocalStorage } from './storage';
 import logo from './3927logo.svg';
 
 import booksData from './data/books.json';
@@ -14,6 +15,7 @@ import { validateAndFetchVerses, copySelectedVerses, moveToNextChapter, moveToPr
 import BookChapterModal from './BookChapterModal';
 
 function App() {
+  
   // 상태값들
     // 장절 검색, 표시, 복사 관련 상태값
     const [input, setInput] = useState('');
@@ -27,8 +29,12 @@ function App() {
     const [showModal, setShowModal] = useState(false);
 
 
-    // 테마 관련 상태값
-    const [theme, setTheme] = useState(1);
+    // 옵션 관련 상태값
+    const [theme, setTheme] = useState(loadFromLocalStorage('theme',1));
+    const [copyFormat, setCopyFormat] = useState(loadFromLocalStorage('copyFormat', 'short')); // 'short', 'medium', 'long' 중 하나
+    const [lastVerse, setLastVerse] = useState(loadFromLocalStorage('lastVerse', copyFormat));
+    const [copyOptions, setCopyOptions] = useState(loadFromLocalStorage('copyOptions', { bracket: true, lineBreak: true, verseNumber: true }));
+
 
     // UI 관련 상태값
     const [showOptions, setShowOptions] = useState(false);
@@ -39,85 +45,115 @@ function App() {
       return map;
     }, {});
 
-  // 장 데이터 매핑
-  const chaptersMap = chaptersData.reduce((map, chapter) => {
-    map[chapter.id] = chapter;
-    return map;
-  }, {});
+    // 장 데이터 매핑
+    const chaptersMap = chaptersData.reduce((map, chapter) => {
+      map[chapter.id] = chapter;
+      return map;
+    }, {});
 
-  // 구절 데이터 매핑
-  const versesMap = versesData.reduce((map, verse) => {
-    const key = verse.chapter_id;
-    if (!map[key]) {
-      map[key] = [];
-    }
-    map[key].push(verse);
-    return map;
-  }, {});
-
-  // 검색어가 바뀔 때
-  const handleInputChange = (value) => {
-    setInput(value);
-    const result = validateAndFetchVerses(value, booksMap, chaptersMap, versesMap);
-    if (result.isValid) {
-      setVerses(result.verses);
-      setCurrentChapterId(result.chapterId);
-      setCurrentChapterName(result.chapterName);
-      setCurrentChapterSummary(result.chapterSummary);
-      setErrorMessage('');
-    } else {
-      setVerses([]);
-      setCurrentChapterId(null);
-      setCurrentChapterName('');
-      setCurrentChapterSummary('');
-      setErrorMessage('구절을 찾지 못했습니다.');
-    }
-    setSelected([]);
-  };
-
-  // 장을 선택할 때
-  const toggleVerseSelection = (verse) => {
-    setSelected(prevSelected => {
-      const isSelected = prevSelected.some(selectedVerse => selectedVerse.id === verse.id);
-      if (isSelected) {
-        return prevSelected.filter(selectedVerse => selectedVerse.id !== verse.id);
-      } else {
-        return [...prevSelected, verse].sort((a, b) => a.number - b.number); // 절 번호 순으로 정렬
+    // 구절 데이터 매핑
+    const versesMap = versesData.reduce((map, verse) => {
+      const key = verse.chapter_id;
+      if (!map[key]) {
+        map[key] = [];
       }
-    });
-  };
+      map[key].push(verse);
+      return map;
+    }, {});
 
-  // 복사버튼
-  const handleCopyVerses = () => {
-    copySelectedVerses(selected, chaptersMap, booksData, setCopyMessage);
-  };
+    // 검색어가 바뀔 때
+    const handleInputChange = (value) => {
+      setInput(value);
+      setLastVerse(value);
+      const result = validateAndFetchVerses(value, booksMap, chaptersMap, versesMap);
+      if (result.isValid) {
+        setVerses(result.verses);
+        setCurrentChapterId(result.chapterId);
+        setCurrentChapterName(result.chapterName);
+        setCurrentChapterSummary(result.chapterSummary);
+        setErrorMessage('');
+      } else {
+        setVerses([]);
+        setCurrentChapterId(null);
+        setCurrentChapterName('');
+        setCurrentChapterSummary('');
+        setErrorMessage('구절을 찾지 못했습니다.');
+      }
+      setSelected([]);
+    };
 
-  // 장 이동 이벤트
-  const handleChapterChange = (currentChapterId) => {
-    const chapter = chaptersMap[currentChapterId];
-    const book = booksMap[chapter.book_id];
-    const newSearchValue = `${book.abbreviation}${chapter.number}`;
-    handleInputChange(newSearchValue);
-  };
+    // 장을 선택할 때
+    const toggleVerseSelection = (verse) => {
+      setSelected(prevSelected => {
+        const isSelected = prevSelected.some(selectedVerse => selectedVerse.id === verse.id);
+        if (isSelected) {
+          return prevSelected.filter(selectedVerse => selectedVerse.id !== verse.id);
+        } else {
+          return [...prevSelected, verse].sort((a, b) => a.number - b.number); // 절 번호 순으로 정렬
+        }
+      });
+    };
 
-  const handleNextChapter = () => {
-    moveToNextChapter(currentChapterId, chaptersMap, booksMap, handleChapterChange);
-  };
+    // 복사버튼
+    const handleCopyVerses = () => {
+      copySelectedVerses(selected, chaptersMap, booksData, setCopyMessage, copyFormat, copyOptions);
+    };
 
-  const handlePreviousChapter = () => {
-    moveToPreviousChapter(currentChapterId, chaptersMap, booksMap, handleChapterChange);
-  };
+    // 장 이동 이벤트
+    const handleChapterChange = (currentChapterId) => {
+      const chapter = chaptersMap[currentChapterId];
+      const book = booksMap[chapter.book_id];
+      const newSearchValue = `${book.abbreviation}${chapter.number}`;
+      handleInputChange(newSearchValue);
+    };
 
-  // 테마 변경
-  const changeTheme = (themeId) => {
-    setTheme(themeId);
-  };
+    const handleNextChapter = () => {
+      moveToNextChapter(currentChapterId, chaptersMap, booksMap, handleChapterChange);
+    };
 
-  //모달창
-  const handleModalSelect = (searchValue) => {
-    setInput(searchValue);
-    handleInputChange(searchValue);
-  };
+    const handlePreviousChapter = () => {
+      moveToPreviousChapter(currentChapterId, chaptersMap, booksMap, handleChapterChange);
+    };
+
+    // 테마 변경
+    const changeTheme = (themeId) => {
+      setTheme(themeId);
+    };
+
+    // 복사 옵션
+    const copyFormatOptions = [
+      { id: 'short', label: '창1:1' },
+      { id: 'medium', label: '창세기 1:1' },
+      { id: 'long', label: '창세기 1장 1절' }
+    ];
+    
+    const updateCopyOption = (optionKey, value) => {
+      setCopyOptions(prevOptions => ({
+        ...prevOptions,
+        [optionKey]: value
+      }));
+    };
+
+    //모달창
+    const handleModalSelect = (searchValue) => {
+      setInput(searchValue);
+      handleInputChange(searchValue);
+    };
+
+    useEffect(() => {
+      saveToLocalStorage('theme', theme);
+      saveToLocalStorage('lastVerse', lastVerse);
+      saveToLocalStorage('copyFormat', copyFormat);
+      saveToLocalStorage('copyOptions', copyOptions);
+    }, [theme, lastVerse, copyOptions, copyFormat]);
+
+    useEffect(() => {
+      if (lastVerse) {
+        setInput(lastVerse);
+        handleInputChange(lastVerse);
+      }
+    }, [lastVerse]);
+    
 
   return (
     <div className={`App w-full h-auto theme-${theme}-bg theme-${theme}-text` }>
@@ -125,16 +161,47 @@ function App() {
         <div className='flex justify-center p-2'>
         <img className='lg:w-[200px] md:w-[150px] w-[60px]' src={logo} alt="3927 project" /></div>
         <div className="container mx-auto p-2">
+
           <div className="options-toggle flex justify-end">
             <button onClick={() => setShowOptions(!showOptions)}>⚙️</button>
           </div>
-          {showOptions && (
+          { // 옵션
+            showOptions && (
             <div className="options-menu py-2">
-              <div className="flex justify-end theme-buttons">
+              <div className="flex theme-buttons my-1">
+                <span className='p-1 text-[0.8rem] font-bold'>테마</span>
                 <button className="theme-1-bg theme-1-text border theme-1-line mx-1 px-2 rounded" onClick={() => changeTheme(1)}>Aa</button>
                 <button className="theme-2-bg theme-2-text border theme-2-line  mx-1 px-2 rounded" onClick={() => changeTheme(2)}>Aa</button>
                 <button className="theme-3-bg theme-3-text border theme-3-line  mx-1 px-2 rounded" onClick={() => changeTheme(3)}>Aa</button>
                 <button className="theme-4-bg theme-4-text border theme-4-line  mx-1 px-2 rounded" onClick={() => changeTheme(4)}>Aa</button>
+              </div>
+              <div className='flex'>
+                <span className='p-1 text-[0.8rem] font-bold'>복사 옵션</span>
+                {copyFormatOptions.map(option => (
+                  <button
+                    key={option.id}
+                    className={`mx-1 px-2 py-1 text-[0.8rem] theme-${theme}-line ${copyFormat === option.id ? `border-[2px] theme-${theme}-selectedBg` : 'border'} rounded`}
+                    onClick={() => setCopyFormat(option.id)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+                 
+                <button 
+                  className={`mx-1 px-2 py-1 text-[0.8rem] theme-${theme}-line border ${copyOptions.bracket ? `theme-${theme}-selectedBg` : ''} rounded`} 
+                  onClick={() => updateCopyOption('bracket', !copyOptions.bracket)}>
+                  {copyOptions.bracket ? "인용괄호 ON" : "인용괄호 OFF"}
+                </button>
+                <button 
+                  className={`mx-1 px-2 py-1 text-[0.8rem] theme-${theme}-line border ${copyOptions.lineBreak ? `theme-${theme}-selectedBg` : ''} rounded`} 
+                  onClick={() => updateCopyOption('lineBreak', !copyOptions.lineBreak)}>
+                  {copyOptions.lineBreak ? "줄바꿈 ON" : "줄바꿈 OFF"}
+                </button>
+                <button 
+                  className={`mx-1 px-2 py-1 text-[0.8rem] theme-${theme}-line border ${copyOptions.verseNumber ? `theme-${theme}-selectedBg` : ''} rounded`} 
+                  onClick={() => updateCopyOption('verseNumber', !copyOptions.verseNumber)}>
+                  {copyOptions.verseNumber ? "절 표시 ON" : "절 표시 OFF"}
+                </button>
               </div>
           </div>
           )}
@@ -195,7 +262,7 @@ function App() {
           </div>
           )}
         <div className='text-[0.8rem] pb-4 text-center opacity-60'>
-          3927 프로젝트를 후원해주세요
+          3927 project by 엄사야
         </div>
       </div>
     </div>
