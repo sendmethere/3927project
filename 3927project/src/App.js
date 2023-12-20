@@ -34,6 +34,7 @@ function App() {
     const [copyFormat, setCopyFormat] = useState(loadFromLocalStorage('copyFormat', 'short')); // 'short', 'medium', 'long' 중 하나
     const [lastVerse, setLastVerse] = useState(loadFromLocalStorage('lastVerse', ''));
     const [copyOptions, setCopyOptions] = useState(loadFromLocalStorage('copyOptions', { bracket: true, lineBreak: true, verseNumber: true }));
+    const [isSummaryOn, setIsSummaryOn] = useState(loadFromLocalStorage('isSummaryOn', true));
 
 
     // UI 관련 상태값
@@ -145,7 +146,8 @@ function App() {
       saveToLocalStorage('lastVerse', lastVerse);
       saveToLocalStorage('copyFormat', copyFormat);
       saveToLocalStorage('copyOptions', copyOptions);
-    }, [theme, lastVerse, copyOptions, copyFormat]);
+      saveToLocalStorage('isSummaryOn', isSummaryOn);
+    }, [theme, lastVerse, copyOptions, copyFormat, isSummaryOn]);
 
     useEffect(() => {
       if (lastVerse) {
@@ -169,11 +171,17 @@ function App() {
             showOptions && (
             <div className="options-menu py-2">
               <div className="flex theme-buttons my-1">
-                <span className='p-1 text-[0.8rem] font-bold'>테마</span>
+                <span className='p-1 text-[0.8rem] font-bold'>보기 옵션</span>
                 <button className="theme-1-bg theme-1-text border theme-1-line mx-1 px-2 rounded" onClick={() => changeTheme(1)}>Aa</button>
                 <button className="theme-2-bg theme-2-text border theme-2-line  mx-1 px-2 rounded" onClick={() => changeTheme(2)}>Aa</button>
                 <button className="theme-3-bg theme-3-text border theme-3-line  mx-1 px-2 rounded" onClick={() => changeTheme(3)}>Aa</button>
                 <button className="theme-4-bg theme-4-text border theme-4-line  mx-1 px-2 rounded" onClick={() => changeTheme(4)}>Aa</button>
+
+                <button 
+                  className={`mx-1 px-2 py-1 text-[0.8rem] theme-${theme}-line border ${isSummaryOn ? `theme-${theme}-selectedBg` : ''} rounded`} 
+                  onClick={() => setIsSummaryOn(!isSummaryOn)}>
+                  {isSummaryOn ? "요약 ON" : "요약 OFF"}
+                </button>
               </div>
               <div className='flex'>
                 <span className='p-1 text-[0.8rem] font-bold'>복사 옵션</span>
@@ -186,7 +194,7 @@ function App() {
                     {option.label}
                   </button>
                 ))}
-                 
+                
                 <button 
                   className={`mx-1 px-2 py-1 text-[0.8rem] theme-${theme}-line border ${copyOptions.bracket ? `theme-${theme}-selectedBg` : ''} rounded`} 
                   onClick={() => updateCopyOption('bracket', !copyOptions.bracket)}>
@@ -229,7 +237,7 @@ function App() {
             </div>
           )}
           <p></p>
-          {currentChapterSummary && <SummaryDiv summary={currentChapterSummary} theme={theme}/>}
+          {isSummaryOn && currentChapterSummary && <SummaryDiv summary={currentChapterSummary} theme={theme}/>}
           {errorMessage && <div className='mx-auto'><p className={`theme-${theme}-text`}>{errorMessage}</p></div>}
           <OutputDiv 
           verses={verses} 
