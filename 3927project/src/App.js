@@ -155,7 +155,34 @@ function App() {
         handleInputChange(lastVerse);
       }
     }, [lastVerse]);
-    
+
+    // Add keyboard shortcut handlers
+    useEffect(() => {
+      const handleKeyPress = (e) => {
+        // Check if Ctrl+C or Cmd+C (Mac) is pressed and verses are selected
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c' && selected.length > 0) {
+          e.preventDefault(); // Prevent default copy behavior
+          handleCopyVerses();
+        }
+        
+        // Add Tab key handler
+        if (e.key === 'Tab') {
+          e.preventDefault(); // Prevent default tab behavior
+          const searchInput = document.querySelector('input[type="text"]');
+          if (searchInput) {
+            searchInput.focus();
+          }
+        }
+      };
+
+      // Add event listener
+      document.addEventListener('keydown', handleKeyPress);
+
+      // Cleanup
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress);
+      };
+    }, [selected]); // Keep the dependency array as is
 
   return (
     <div className={`App w-full h-auto theme-${theme}-bg theme-${theme}-text` }>
