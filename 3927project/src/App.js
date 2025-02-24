@@ -313,7 +313,7 @@ function App() {
           onClearSelection={handleClearSelection}
         />
         </div>
-        <div className='fixed bottom-0 left-0 right-0 p-3 flex justify-center'>
+        <div className='fixed bottom-0 left-0 right-0 p-3 flex justify-center' style={{ transform: 'translateZ(0)' }}>
         {
           selected.length > 0 && (
             <div className="flex gap-2">
@@ -322,7 +322,9 @@ function App() {
                 className={`
                 p-3 px-5
                 theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
+                backdrop-blur-sm
                 `}
+                style={{ WebkitTransform: 'translateZ(0)' }}
               >
                 {copyMessage ? copyMessage : '복사'}
               </button>
@@ -331,7 +333,9 @@ function App() {
                 className={`
                 p-3 px-5
                 theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
+                backdrop-blur-sm
                 `}
+                style={{ WebkitTransform: 'translateZ(0)' }}
               >
                 초기화
               </button>
