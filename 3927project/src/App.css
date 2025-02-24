@@ -135,3 +135,27 @@ background-color: #373d43;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 900;
   }
+
+/* Theme 1 */
+.theme-1-focusedBg {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-left: 2px solid #666;
+}
+
+/* Theme 2 */
+.theme-2-focusedBg {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 2px solid #ddd;
+}
+
+/* Theme 3 */
+.theme-3-focusedBg {
+  background-color: rgba(255, 235, 205, 0.2);
+  border-left: 2px solid #d4a373;
+}
+
+/* Theme 4 */
+.theme-4-focusedBg {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 2px solid #90a4ae;
+}

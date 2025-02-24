@@ -13,6 +13,8 @@ import SummaryDiv from './SummaryDiv';
 
 import { validateAndFetchVerses, copySelectedVerses, moveToNextChapter, moveToPreviousChapter } from './utils';
 import BookChapterModal from './BookChapterModal';
+import GuideModal from './GuideModal';
+import PresentationModal from './PresentationModal';
 
 function App() {
   
@@ -27,6 +29,9 @@ function App() {
     const [currentChapterName, setCurrentChapterName] = useState('');
     const [currentChapterId, setCurrentChapterId] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [focusedIndex, setFocusedIndex] = useState(-1);
+    const [showGuideModal, setShowGuideModal] = useState(false);
+    const [showPresentation, setShowPresentation] = useState(false);
 
 
     // 옵션 관련 상태값
@@ -66,6 +71,7 @@ function App() {
     const handleInputChange = (value) => {
       setInput(value);
       setLastVerse(value);
+      setFocusedIndex(-1);
       const result = validateAndFetchVerses(value, booksMap, chaptersMap, versesMap);
       if (result.isValid) {
         setVerses(result.verses);
@@ -105,6 +111,7 @@ function App() {
       const chapter = chaptersMap[currentChapterId];
       const book = booksMap[chapter.book_id];
       const newSearchValue = `${book.abbreviation}${chapter.number}`;
+      setFocusedIndex(-1);
       handleInputChange(newSearchValue);
     };
 
@@ -141,6 +148,11 @@ function App() {
       handleInputChange(searchValue);
     };
 
+    // 초기화 함수 추가
+    const handleClearSelection = () => {
+      setSelected([]);
+    };
+
     useEffect(() => {
       saveToLocalStorage('theme', theme);
       saveToLocalStorage('lastVerse', lastVerse);
@@ -159,30 +171,52 @@ function App() {
     // Add keyboard shortcut handlers
     useEffect(() => {
       const handleKeyPress = (e) => {
-        // Check if Ctrl+C or Cmd+C (Mac) is pressed and verses are selected
-        if ((e.ctrlKey || e.metaKey) && e.key === 'c' && selected.length > 0) {
-          e.preventDefault(); // Prevent default copy behavior
-          handleCopyVerses();
-        }
-        
-        // Add Tab key handler
+        // Tab key handler - 최상단으로 이동하고 다른 조건들보다 먼저 체크
         if (e.key === 'Tab') {
-          e.preventDefault(); // Prevent default tab behavior
-          const searchInput = document.querySelector('input[type="text"]');
+          e.preventDefault();
+          const searchInput = document.getElementById('bible-search');
           if (searchInput) {
             searchInput.focus();
+            return; // 다른 핸들러가 실행되지 않도록 종료
           }
+        }
+
+        // Presentation mode handler
+        if (showPresentation) {
+          if (e.code === 'KeyF' || e.key === 'Escape') {
+            e.preventDefault();
+            setShowPresentation(false);
+          }
+          return;
+        }
+
+        // INPUT 태그에 포커스가 있을 때는 다른 단축키 무시
+        if (document.activeElement.tagName === 'INPUT') {
+          return;
+        }
+
+        // 나머지 단축키 핸들러들
+        if ((e.ctrlKey || e.metaKey) && e.code === 'KeyC' && selected.length > 0) {
+          e.preventDefault();
+          handleCopyVerses();
+          return;
+        }
+
+        if (e.code === 'KeyR') {
+          e.preventDefault();
+          handleClearSelection();
+        } else if (e.code === 'KeyF' && selected.length > 0) {
+          e.preventDefault();
+          setShowPresentation(true);
         }
       };
 
-      // Add event listener
       document.addEventListener('keydown', handleKeyPress);
 
-      // Cleanup
       return () => {
         document.removeEventListener('keydown', handleKeyPress);
       };
-    }, [selected]); // Keep the dependency array as is
+    }, [selected, showPresentation, handleCopyVerses]); // handleCopyVerses 의존성 추가
 
   return (
     <div className={`App w-full h-auto theme-${theme}-bg theme-${theme}-text` }>
@@ -270,21 +304,40 @@ function App() {
           verses={verses} 
           selectedVerses={selected} 
           onVerseClick={toggleVerseSelection} 
-          theme={theme}/>
+          theme={theme}
+          onCopyVerses={handleCopyVerses}
+          focusedIndex={focusedIndex}
+          setFocusedIndex={setFocusedIndex}
+          onPrevChapter={handlePreviousChapter}
+          onNextChapter={handleNextChapter}
+          onClearSelection={handleClearSelection}
+        />
         </div>
         <div className='md:fixed md:bottom-0 md:left-1/2 md:transform md:-translate-x-1/2 p-3'>
         {
           selected.length > 0 && (
-            <button 
-              onClick={handleCopyVerses} 
-              className={`
-              fixed bottom-4 right-4 p-4 
-              md:relative md:right-0 md:bottom-0 md:px-8
-              theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
-              `}
-            >
-              {copyMessage ? copyMessage : '복사'}
-            </button>
+            <div className="flex gap-2">
+              <button 
+                onClick={handleCopyVerses} 
+                className={`
+                fixed bottom-4 right-16 p-4 
+                md:relative md:right-0 md:bottom-0 md:px-8
+                theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
+                `}
+              >
+                {copyMessage ? copyMessage : '복사'}
+              </button>
+              <button 
+                onClick={handleClearSelection} 
+                className={`
+                fixed bottom-4 right-4 p-4 
+                md:relative md:right-0 md:bottom-0 md:px-8
+                theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
+                `}
+              >
+                초기화
+              </button>
+            </div>
           )
         }
         </div>
@@ -297,9 +350,33 @@ function App() {
           </div>
           )}
         <div className='text-[0.8rem] pb-4 text-center opacity-60'>
-          3927 project by 엄사야
+          <span className='font-bold'>3927</span> project by 엄사야
+          <span className='mx-2'>|</span>
+          <span 
+            className='font-bold cursor-pointer hover:opacity-80' 
+            onClick={() => setShowGuideModal(true)}
+          >
+            가이드
+          </span>
         </div>
       </div>
+      
+      {showGuideModal && (
+        <GuideModal
+          onClose={() => setShowGuideModal(false)}
+          theme={theme}
+        />
+      )}
+
+      {showPresentation && (
+        <PresentationModal
+          selected={selected}
+          onClose={() => setShowPresentation(false)}
+          theme={theme}
+          chaptersMap={chaptersMap}
+          booksData={booksData}
+        />
+      )}
     </div>
   );
 }
