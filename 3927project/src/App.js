@@ -313,15 +313,14 @@ function App() {
           onClearSelection={handleClearSelection}
         />
         </div>
-        <div className='md:fixed md:bottom-0 md:left-1/2 md:transform md:-translate-x-1/2 p-3'>
+        <div className='fixed bottom-0 left-0 right-0 p-3 flex justify-center'>
         {
           selected.length > 0 && (
             <div className="flex gap-2">
               <button 
                 onClick={handleCopyVerses} 
                 className={`
-                fixed bottom-4 right-16 p-4 
-                md:relative md:right-0 md:bottom-0 md:px-8
+                p-3 px-5
                 theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
                 `}
               >
@@ -330,8 +329,7 @@ function App() {
               <button 
                 onClick={handleClearSelection} 
                 className={`
-                fixed bottom-4 right-4 p-4 
-                md:relative md:right-0 md:bottom-0 md:px-8
+                p-3 px-5
                 theme-${theme}-buttonBg theme-${theme}-buttonText rounded-full shadow-lg opacity-50 hover:opacity-100
                 `}
               >
