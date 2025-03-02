@@ -10,7 +10,7 @@ function GuideModal({ onClose, theme }) {
         <h2 className="text-xl font-bold mb-4">📖 사용 가이드</h2>
         <div className="space-y-3">
           <h3 className="font-bold">🔍 검색 방법</h3>
-          <p>• 책이름 장 절: "창1:1" 또는 "창세기1:1"</p>
+          <p>• 책이름 장 절: "창1:1"</p>
           <p>• 여러 절 검색: "창1:1-3" 또는 "창1:1,3,5"</p>
           
           <h3 className="font-bold mt-4">⌨️ 단축키</h3>

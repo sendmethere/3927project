@@ -177,6 +177,7 @@ function App() {
           const searchInput = document.getElementById('bible-search');
           if (searchInput) {
             searchInput.focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return; // 다른 핸들러가 실행되지 않도록 종료
           }
         }
